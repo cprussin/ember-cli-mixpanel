@@ -46,6 +46,16 @@ var MixpanelMixin = Ember.Mixin.create({
         }
     },
 
+    registerProperties: function(properties) {
+        if (this.pageHasAnalytics()) {
+            mixpanel.register(properties);
+        }
+
+        if (this.logTrackingEnabled()) {
+            this.logTracking('register properties', properties);
+        }
+    },
+
     identifyUser: function(userId, traits, options, callback) {
         if (this.pageHasAnalytics()) {
             mixpanel.identify(userId, traits, options, callback);
